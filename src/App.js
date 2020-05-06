@@ -23,13 +23,23 @@ class App extends React.Component {
     this.state = { tasks: DEFAULT_ITEMS, inputValue: "" };
   }
   handleChange = (e) => {
-    this.setState({ inputValue: e.target.value });
+    if (e.target.value) {
+      this.setState({ inputValue: e.target.value });
+    }
   };
   handleSubmit = (e) => {
     e.preventDefault();
+    if (this.state.inputValue) {
+      this.setState({
+        tasks: [
+          ...this.state.tasks,
+          { task: this.state.inputValue, id: Date.now(), completed: false },
+        ],
+        inputValue: "",
+      });
+    }
   };
   toggleCompleted = (itemId) => {
-    console.log("toggle");
     this.setState({
       tasks: this.state.tasks.map((item) => {
         if (itemId === item.id) {
