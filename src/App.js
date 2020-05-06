@@ -14,20 +14,25 @@ const DEFAULT_ITEMS = [
     completed: false,
   },
 ];
+const storageListData = localStorage.getItem("listData");
+const initStorageListData = storageListData ? [...JSON.parse(storageListData)] : DEFAULT_ITEMS;
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
   constructor() {
     super();
-    this.state = { tasks: DEFAULT_ITEMS, inputValue: "" };
+    this.state = {
+      tasks: initStorageListData,
+      inputValue: "",
+    };
   }
   handleChange = (e) => {
     if (e.target.value) {
       this.setState({ inputValue: e.target.value });
     }
   };
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     if (this.state.inputValue) {
       this.setState({
@@ -38,6 +43,12 @@ class App extends React.Component {
         inputValue: "",
       });
     }
+    await this.storeLocalList();
+  };
+  storeLocalList = () => {
+    const listItems = this.state.tasks;
+    console.log(listItems);
+    localStorage.setItem("listData", JSON.stringify(listItems));
   };
   toggleCompleted = (itemId) => {
     this.setState({
