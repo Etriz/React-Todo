@@ -49,7 +49,8 @@ class App extends React.Component {
       }),
     });
   };
-  clearCompleted = () => {
+  clearCompleted = (e) => {
+    e.preventDefault();
     this.setState({
       tasks: this.state.tasks.filter((item) => {
         return !item.completed;
