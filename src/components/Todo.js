@@ -6,9 +6,9 @@ const Todo = (props) => {
     props.toggleCompleted(item.id);
   };
   return (
-    <h2 className={`${item.completed ? "completed" : ""} listItem`} onClick={handleCompleted}>
+    <div className={`${item.completed ? "completed" : ""} listItem`} onClick={handleCompleted}>
       {item.task}
-    </h2>
+    </div>
   );
 };
 

@@ -5,13 +5,13 @@ import Todo from "./Todo";
 
 const TodoList = (props) => {
   return (
-    <div>
+    <div className="list">
       {props.list.length > 0 ? (
         props.list.map((item) => {
           return <Todo item={item} key={item.id} toggleCompleted={props.toggleCompleted} />;
         })
       ) : (
-        <h2>Your list is empty</h2>
+        <div>Your list is empty</div>
       )}
     </div>
   );

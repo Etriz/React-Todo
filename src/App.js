@@ -9,11 +9,6 @@ const DEFAULT_ITEMS = [
     completed: true,
   },
   {
-    task: "Test the App",
-    id: 1528817084358,
-    completed: false,
-  },
-  {
     task: "???",
     id: 1528817084359,
     completed: false,
@@ -88,7 +83,7 @@ class App extends React.Component {
   };
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Things To Do Today</h1>
         <TodoForm
           handleSubmit={this.handleSubmit}
