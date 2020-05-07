@@ -4,13 +4,23 @@ import TodoForm from "./components/TodoForm";
 
 const DEFAULT_ITEMS = [
   {
-    task: "Organize Garage",
+    task: "Make a To-Do List App",
     id: 1528817077286,
+    completed: true,
+  },
+  {
+    task: "Test the App",
+    id: 1528817084358,
     completed: false,
   },
   {
-    task: "Bake Cookies",
-    id: 1528817084358,
+    task: "???",
+    id: 1528817084359,
+    completed: false,
+  },
+  {
+    task: "Profit",
+    id: 1528817084368,
     completed: false,
   },
 ];
@@ -23,7 +33,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      tasks: initStorageListData,
+      todos: initStorageListData,
       inputValue: "",
     };
   }
@@ -32,53 +42,61 @@ class App extends React.Component {
       this.setState({ inputValue: e.target.value });
     }
   };
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.inputValue) {
-      this.setState({
-        tasks: [
-          ...this.state.tasks,
-          { task: this.state.inputValue, id: Date.now(), completed: false },
-        ],
-        inputValue: "",
-      });
+      this.setState(
+        {
+          todos: [
+            ...this.state.todos,
+            { task: this.state.inputValue, id: Date.now(), completed: false },
+          ],
+          inputValue: "",
+        },
+        () => this.addToLocalStorage()
+      );
     }
-    await this.storeLocalList();
   };
-  storeLocalList = () => {
-    const listItems = this.state.tasks;
-    console.log(listItems);
+  addToLocalStorage = () => {
+    const listItems = this.state.todos;
+    console.warn("add these to storage", listItems);
     localStorage.setItem("listData", JSON.stringify(listItems));
   };
   toggleCompleted = (itemId) => {
-    this.setState({
-      tasks: this.state.tasks.map((item) => {
-        if (itemId === item.id) {
-          return { ...item, completed: !item.completed };
-        }
-        return item;
-      }),
-    });
+    this.setState(
+      {
+        todos: this.state.todos.map((item) => {
+          if (itemId === item.id) {
+            return { ...item, completed: !item.completed };
+          }
+          return item;
+        }),
+      },
+      () => this.addToLocalStorage()
+    );
   };
   clearCompleted = (e) => {
     e.preventDefault();
-    this.setState({
-      tasks: this.state.tasks.filter((item) => {
-        return !item.completed;
-      }),
-    });
+    this.setState(
+      {
+        todos: this.state.todos.filter((item) => {
+          return !item.completed;
+        }),
+      },
+      () => this.addToLocalStorage()
+    );
   };
   render() {
     return (
       <div>
-        <h1>Welcome to your Todo App!</h1>
+        <h1>Things To Do Today</h1>
         <TodoForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           clearCompleted={this.clearCompleted}
           inputValue={this.state.inputValue}
         />
-        <TodoList list={this.state.tasks} toggleCompleted={this.toggleCompleted} />
+        <TodoList list={this.state.todos} toggleCompleted={this.toggleCompleted} />
       </div>
     );
   }

@@ -11,7 +11,7 @@ const TodoList = (props) => {
           return <Todo item={item} key={item.id} toggleCompleted={props.toggleCompleted} />;
         })
       ) : (
-        <p>Your list is empty</p>
+        <h2>Your list is empty</h2>
       )}
     </div>
   );
