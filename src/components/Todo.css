@@ -9,11 +9,6 @@
 .container > h1 {
   text-align: center;
 }
-.list > div {
-  font-size: 20px;
-  padding: 5px 10px;
-  text-align: center;
-}
 form {
   border-radius: 5px;
   box-shadow: 0 5px 10px lightgray;
@@ -25,8 +20,16 @@ form {
   border: 1px solid lightgray;
   box-shadow: 0 5px 10px lightgray;
 }
+.list > div {
+  font-size: 20px;
+  padding: 5px 10px;
+  text-align: center;
+}
 .list :nth-child(2n) {
   background: white;
+}
+.list :last-child {
+  border-radius: 0 0 5px 5px;
 }
 .listItem:hover {
   cursor: pointer;
